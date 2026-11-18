@@ -1,0 +1,1544 @@
+[Typing Practice.html](https://github.com/user-attachments/files/35008689/Typing.Practice.html)
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>일반 타자연습 - 나만의 문장 & 가사 연습기</title>
+    <!-- 브라우저 탭 및 프로그램 창용 지구본 파비콘 -->
+    <link id="favicon-svg" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='12' y1='10' x2='52' y2='54' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%232338BDF8'/%3E%3Cstop offset='100%25' stop-color='%23235CE1B8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2323091017'/%3E%3Crect x='2' y='2' width='60' height='60' rx='14' fill='none' stroke='%23235CE1B8' stroke-opacity='0.4' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='20' fill='url(%2323g)' fill-opacity='0.14' stroke='url(%2323g)' stroke-width='3'/%3E%3Cellipse cx='32' cy='32' rx='9.5' ry='20' fill='none' stroke='url(%2323g)' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M13 26h38M13 38h38M32 12v40' stroke='url(%2323g)' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link id="favicon-png" rel="shortcut icon" type="image/png" href="" />
+    <link id="apple-touch-icon" rel="apple-touch-icon" href="" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Pretendard 폰트 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        bgDeep: '#091017',
+                        bgCard: '#0e1722',
+                        bgInput: '#070d14',
+                        promptBg: '#0d2125',
+                        borderSubtle: '#1c2938',
+                        mintAccent: '#5ce1b8',
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body {
+            background-color: #091017;
+            color: #E2E8F0;
+            font-family: 'Pretendard', sans-serif;
+            overflow-x: hidden;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #070d14; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1c2938; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #34d399; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- 상단 헤더 -->
+    <header class="w-full border-b border-borderSubtle bg-bgCard/80 backdrop-blur sticky top-0 z-40 px-4 sm:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600/30 to-emerald-500/30 border border-emerald-500/40 flex items-center justify-center shadow-lg shadow-emerald-500/10">
+                <svg class="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <h1 id="header-set-title" class="text-lg sm:text-xl font-bold text-white tracking-tight">일반 타자연습</h1>
+                    <span id="header-category-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">기타</span>
+                </div>
+                <p id="header-breadcrumb" class="text-xs text-slate-400 mt-0.5">타자연습 편집 · 기타 · 기본 연습문 · 문장 1</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2.5 flex-wrap">
+            <select id="set-select" class="bg-bgInput border border-borderSubtle text-slate-200 text-sm rounded-xl px-3 py-2 outline-none focus:border-emerald-500 transition shadow-sm max-w-[220px]">
+                <!-- 동적 생성 -->
+            </select>
+            <button id="open-market-btn" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-sm font-medium px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                공유 마켓
+            </button>
+            <button id="open-manager-btn" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-sm font-medium px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                문장 설정 / 관리
+            </button>
+            <button id="reset-default-btn" class="bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle text-sm font-medium px-3.5 py-2 rounded-xl transition shadow-sm">
+                초기화
+            </button>
+        </div>
+    </header>
+
+    <!-- 메인 컨테이너 (좌우 여백 반응형 확장) -->
+    <main class="w-full flex-1 flex flex-col px-4 sm:px-[clamp(16px,2.5vw,36px)] py-6 gap-6 mx-auto">
+
+        <!-- 카테고리 필터 탭 -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar">
+            <button class="category-filter-tab px-4 py-2 rounded-xl text-sm font-medium transition bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/10 flex-shrink-0" data-cat="전체">전체 (<span id="count-all">0</span>)</button>
+            <button class="category-filter-tab px-4 py-2 rounded-xl text-sm font-medium transition bg-bgCard hover:bg-slate-800/80 text-slate-300 border border-borderSubtle flex-shrink-0" data-cat="노래가사">노래가사 (<span id="count-lyrics">0</span>)</button>
+            <button class="category-filter-tab px-4 py-2 rounded-xl text-sm font-medium transition bg-bgCard hover:bg-slate-800/80 text-slate-300 border border-borderSubtle flex-shrink-0" data-cat="짧은 문장">짧은 문장 (<span id="count-short">0</span>)</button>
+            <button class="category-filter-tab px-4 py-2 rounded-xl text-sm font-medium transition bg-bgCard hover:bg-slate-800/80 text-slate-300 border border-borderSubtle flex-shrink-0" data-cat="긴 글">긴 글 (<span id="count-long">0</span>)</button>
+            <button class="category-filter-tab px-4 py-2 rounded-xl text-sm font-medium transition bg-bgCard hover:bg-slate-800/80 text-slate-300 border border-borderSubtle flex-shrink-0" data-cat="책 구절">책 구절 (<span id="count-book">0</span>)</button>
+            <button class="category-filter-tab px-4 py-2 rounded-xl text-sm font-medium transition bg-bgCard hover:bg-slate-800/80 text-slate-300 border border-borderSubtle flex-shrink-0" data-cat="명언/어록">명언/어록 (<span id="count-quote">0</span>)</button>
+            <button class="category-filter-tab px-4 py-2 rounded-xl text-sm font-medium transition bg-bgCard hover:bg-slate-800/80 text-slate-300 border border-borderSubtle flex-shrink-0" data-cat="기타">기타 (<span id="count-etc">0</span>)</button>
+        </div>
+
+        <!-- 제시문 박스 (자연스러운 줄바꿈 & 원래 글자 크기 복원) -->
+        <div class="w-full bg-promptBg border border-emerald-500/30 rounded-2xl p-6 sm:p-8 shadow-inner relative">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none"></div>
+            <div id="target-display" class="text-lg sm:text-xl md:text-2xl font-normal leading-relaxed tracking-normal select-none break-keep whitespace-pre-wrap min-h-[4rem]">
+                <!-- 자소 단위 비교 렌더링 -->
+            </div>
+        </div>
+
+        <!-- 안내 문구 및 글자 수 표시 -->
+        <div class="flex items-center justify-between text-xs sm:text-sm px-1">
+            <p class="text-slate-400">글자 수를 맞춘 뒤 <span class="text-emerald-400 font-bold">스페이스바</span> 또는 <span class="text-emerald-400 font-bold">Enter</span> 키를 누르면 기록 저장 후 다음 문장으로 넘어갑니다.</p>
+            <div class="bg-bgCard border border-borderSubtle px-3.5 py-1.5 rounded-xl text-slate-300 font-mono shadow-sm">
+                입력 글자 수: <span id="current-char-count" class="text-emerald-400 font-bold">0</span> / <span id="total-char-count">0</span>자
+            </div>
+        </div>
+
+        <!-- 입력창 박스 -->
+        <div class="w-full relative">
+            <textarea id="typing-input" rows="3" class="w-full bg-bgInput border-2 border-borderSubtle focus:border-emerald-500 rounded-2xl p-5 sm:p-6 text-lg sm:text-xl text-slate-100 placeholder:text-slate-600 outline-none resize-none transition shadow-lg leading-relaxed" placeholder="위 문장을 그대로 입력하세요."></textarea>
+            <div class="absolute bottom-3 right-4 text-xs text-slate-500 font-mono pointer-events-none">
+                글자 수 충족 후 Spacebar 또는 Enter → 다음 문장
+            </div>
+        </div>
+
+        <!-- 실시간 통계 3단 카드 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-bgCard border border-borderSubtle rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+                <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">현재 속도</span>
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400 mt-2 flex items-baseline gap-1">
+                    <span id="live-speed">0</span><span class="text-sm font-normal text-slate-400">타/분</span>
+                </div>
+            </div>
+            <div class="bg-bgCard border border-borderSubtle rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+                <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">현재 정확도</span>
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400 mt-2">
+                    <span id="live-accuracy">100</span>%
+                </div>
+            </div>
+            <div class="bg-bgCard border border-borderSubtle rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+                <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">오타</span>
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400 mt-2">
+                    <span id="live-errors">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 실시간 오타 분석 배너 -->
+        <div id="status-banner" class="bg-bgCard border border-borderSubtle rounded-2xl p-4 sm:p-5 text-sm text-slate-300 flex items-center justify-between shadow-sm">
+            <div id="status-text" class="font-medium text-slate-400">입력을 시작하면 속도, 정확도, 오타 위치가 실시간으로 표시됩니다.</div>
+            <div id="status-badge" class="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700">대기 중</div>
+        </div>
+
+        <!-- 오타 반응 및 회복 상세 분석 배너 -->
+        <div class="bg-bgCard border border-borderSubtle rounded-2xl p-4 sm:p-5 text-xs sm:text-sm text-slate-400 font-mono shadow-sm">
+            오타 관측 후 첫 수정 키까지의 시간, 회복 시간과 추가 입력을 분석합니다. <span id="recovery-metrics" class="text-emerald-400 ml-2">준비 완료</span>
+        </div>
+
+        <!-- 컨트롤 바 (순서대로 / 셔플 및 버튼) -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+            <div class="flex items-center gap-3">
+                <button id="next-sentence-btn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold px-4 py-2.5 rounded-xl transition shadow-md shadow-emerald-500/10 text-sm">다음 문장</button>
+                <button id="retry-sentence-btn" class="bg-bgCard hover:bg-slate-800 text-slate-300 border border-borderSubtle px-4 py-2.5 rounded-xl transition text-sm font-medium shadow-sm">다시 입력</button>
+            </div>
+            <div class="flex items-center gap-4 flex-wrap">
+                <div id="cumulative-footer-stats" class="text-xs sm:text-sm text-emerald-400 font-mono font-medium">
+                    완료 0문장 · 누적 평균 0타/분 · 정확도 100%
+                </div>
+                <div class="text-sm text-slate-400 font-medium flex items-center gap-2">
+                    <span>진행 방식:</span>
+                    <button id="mode-toggle-btn" class="bg-bgInput hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 px-3.5 py-1.5 rounded-xl transition font-mono text-xs shadow-sm">순서대로 (1→끝)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 상세 연습 기록 섹션 -->
+        <div class="w-full bg-bgCard border border-borderSubtle rounded-2xl p-6 shadow-md mt-4 flex flex-col gap-6">
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-borderSubtle pb-4">
+                <div class="flex items-center gap-3">
+                    <h3 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                        상세 연습 기록
+                    </h3>
+                    <span id="history-total-count" class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-semibold">총 0건</span>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                    <button id="toggle-history-view-btn" class="bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle text-xs font-medium px-3.5 py-2 rounded-xl transition shadow-sm">기록 접기</button>
+                    <button id="export-csv-btn" class="bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle text-xs font-medium px-3.5 py-2 rounded-xl transition shadow-sm">CSV 내보내기</button>
+                    <button id="export-json-btn" class="bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle text-xs font-medium px-3.5 py-2 rounded-xl transition shadow-sm">JSON 내보내기</button>
+                    <button id="clear-history-btn" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-medium px-3.5 py-2 rounded-xl transition shadow-sm">전체 기록 삭제</button>
+                </div>
+            </div>
+
+            <!-- 요약 지표 바 -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 bg-bgInput p-4 rounded-xl border border-borderSubtle text-center">
+                <div>
+                    <div class="text-xs text-slate-400">총 완료 문장</div>
+                    <div id="summary-total-completed" class="text-base font-bold text-white font-mono mt-1">0문장</div>
+                </div>
+                <div>
+                    <div class="text-xs text-slate-400">전체 평균 속도</div>
+                    <div id="summary-avg-speed" class="text-base font-bold text-emerald-400 font-mono mt-1">0타/분</div>
+                </div>
+                <div>
+                    <div class="text-xs text-slate-400">전체 평균 정확도</div>
+                    <div id="summary-avg-accuracy" class="text-base font-bold text-emerald-400 font-mono mt-1">100%</div>
+                </div>
+                <div>
+                    <div class="text-xs text-slate-400">총 틀린 횟수 (최종/발생)</div>
+                    <div id="summary-total-errors" class="text-base font-bold text-rose-400 font-mono mt-1">0회 / 0회</div>
+                </div>
+                <div>
+                    <div class="text-xs text-slate-400">총 수정 키 입력 횟수</div>
+                    <div id="summary-total-fixes" class="text-base font-bold text-amber-400 font-mono mt-1">0회</div>
+                </div>
+            </div>
+
+            <!-- 기록 리스트 컨테이너 -->
+            <div id="history-content-wrapper" class="flex flex-col gap-3">
+                <div id="history-list" class="flex flex-col gap-2.5 max-h-[450px] overflow-y-auto custom-scrollbar pr-1">
+                    <div class="text-center py-10 text-slate-500 text-sm">완료된 연습 기록이 없습니다. 문장을 입력한 뒤 Spacebar 또는 Enter를 누르면 상세 기록이 이곳에 누적됩니다.</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 문장 설정 및 관리 모달 -->
+    <div id="manager-modal" class="fixed inset-0 bg-bgDeep/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-bgCard border border-borderSubtle rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-borderSubtle bg-bgInput">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                    문장 세트 생성 및 관리
+                </h2>
+                <button id="close-manager-btn" class="text-slate-400 hover:text-white p-1 rounded-lg transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto custom-scrollbar flex flex-col gap-6">
+                <!-- 탭 메뉴 -->
+                <div class="flex items-center gap-2 border-b border-borderSubtle pb-4 flex-wrap">
+                    <button class="manager-tab px-4 py-2 rounded-xl text-sm font-semibold transition bg-emerald-500 text-slate-950 shadow-sm" data-tab="create">새 세트 만들기</button>
+                    <button class="manager-tab px-4 py-2 rounded-xl text-sm font-semibold transition bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle" data-tab="list">내 연습 세트 목록</button>
+                    <button class="manager-tab px-4 py-2 rounded-xl text-sm font-semibold transition bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle" data-tab="market">🌐 모두의 공유 마켓 (실시간)</button>
+                    <button class="manager-tab px-4 py-2 rounded-xl text-sm font-semibold transition bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle" data-tab="import">공유 코드 / 파일 불러오기</button>
+                </div>
+
+                <!-- 탭 1: 새 세트 만들기 -->
+                <div id="tab-create" class="flex flex-col gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1.5">세트 제목</label>
+                            <input type="text" id="new-set-title-input" class="w-full bg-bgInput border border-borderSubtle rounded-xl px-4 py-2.5 text-sm text-white outline-none focus:border-emerald-500 transition" placeholder="예: 좋아하는 노래 가사 모음" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1.5">카테고리</label>
+                            <select id="new-set-category-select" class="w-full bg-bgInput border border-borderSubtle rounded-xl px-4 py-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500 transition">
+                                <option value="노래가사">노래가사</option>
+                                <option value="짧은 문장">짧은 문장</option>
+                                <option value="긴 글">긴 글</option>
+                                <option value="책 구절">책 구절</option>
+                                <option value="명언/어록">명언/어록</option>
+                                <option value="기타" selected>기타</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5">문장 목록 (엔터 줄바꿈 기준으로 각 문장이 생성됩니다)</label>
+                        <textarea id="new-set-sentences-input" rows="8" class="w-full bg-bgInput border border-borderSubtle rounded-xl p-4 text-sm text-slate-200 outline-none focus:border-emerald-500 transition resize-none leading-relaxed" placeholder="첫 번째 연습 문장입니다.&#10;두 번째 연습 문장입니다.&#10;세 번째 연습 문장입니다."></textarea>
+                    </div>
+                    <div class="flex items-center justify-end gap-3 pt-2">
+                        <button id="save-new-set-btn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold px-5 py-2.5 rounded-xl transition shadow-md shadow-emerald-500/10 text-sm">저장하기</button>
+                        <button id="save-and-publish-btn" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-5 py-2.5 rounded-xl transition shadow-md shadow-blue-600/10 text-sm">저장 후 클라우드 공유</button>
+                    </div>
+                </div>
+
+                <!-- 탭 2: 내 연습 세트 목록 -->
+                <div id="tab-list" class="flex flex-col gap-4 hidden">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-xs text-slate-400">내가 등록하거나 불러온 커스텀 세트 목록입니다.</span>
+                        <div class="flex items-center gap-2">
+                            <input type="file" id="import-json-file-input" class="hidden" accept=".json" />
+                            <button id="trigger-import-json-btn" class="bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle text-xs font-medium px-3 py-1.5 rounded-xl transition">전체 백업 JSON 불러오기</button>
+                            <button id="export-all-json-btn" class="bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle text-xs font-medium px-3 py-1.5 rounded-xl transition">전체 백업 JSON 내보내기</button>
+                        </div>
+                    </div>
+                    <div id="manager-set-list" class="flex flex-col gap-3 max-h-[380px] overflow-y-auto custom-scrollbar pr-1">
+                        <!-- 세트 카드 동적 생성 -->
+                    </div>
+                </div>
+
+                <!-- 탭 3: 모두의 공유 마켓 (실시간) -->
+                <div id="tab-market" class="flex flex-col gap-4 hidden">
+                    <div class="flex flex-wrap items-center justify-between gap-3 bg-bgInput p-4 rounded-xl border border-borderSubtle">
+                        <div class="flex items-center gap-2 flex-1 min-w-[240px]">
+                            <input type="text" id="market-search-input" class="w-full bg-bgCard border border-borderSubtle rounded-xl px-3.5 py-2 text-sm text-white outline-none focus:border-emerald-500 transition" placeholder="제목, 닉네임, 문장 내용 검색..." />
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <select id="market-category-select" class="bg-bgCard border border-borderSubtle text-slate-200 text-sm rounded-xl px-3 py-2 outline-none focus:border-emerald-500 transition">
+                                <option value="전체">모든 카테고리</option>
+                                <option value="노래가사">노래가사</option>
+                                <option value="짧은 문장">짧은 문장</option>
+                                <option value="긴 글">긴 글</option>
+                                <option value="책 구절">책 구절</option>
+                                <option value="명언/어록">명언/어록</option>
+                                <option value="기타">기타</option>
+                            </select>
+                            <button id="refresh-market-btn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold px-4 py-2 rounded-xl transition text-sm">새로고침</button>
+                        </div>
+                    </div>
+                    <div id="market-list" class="flex flex-col gap-3 max-h-[380px] overflow-y-auto custom-scrollbar pr-1">
+                        <div class="text-center py-10 text-slate-500 text-sm">공유 마켓에서 다른 사용자들이 올린 세트를 불러오는 중입니다...</div>
+                    </div>
+                </div>
+
+                <!-- 탭 4: 공유 코드 / 파일 불러오기 -->
+                <div id="tab-import" class="flex flex-col gap-4 hidden">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5">공유 텍스트 코드 입력 (`TS-SHARE:...` 형태)</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="share-code-input" class="flex-1 bg-bgInput border border-borderSubtle rounded-xl px-4 py-2.5 text-sm font-mono text-white outline-none focus:border-emerald-500 transition" placeholder="친구에게 받은 TS-SHARE 공유 코드를 여기에 붙여넣으세요" />
+                            <button id="apply-share-code-btn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold px-5 py-2.5 rounded-xl transition text-sm flex-shrink-0">코드 적용</button>
+                        </div>
+                    </div>
+                    <div class="border-t border-borderSubtle pt-4 mt-2">
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5">개별 JSON 파일 불러오기</label>
+                        <div class="flex items-center gap-3">
+                            <input type="file" id="import-single-json-input" class="hidden" accept=".json" />
+                            <button id="trigger-single-json-btn" class="bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle text-sm font-medium px-4 py-2.5 rounded-xl transition">JSON 파일 선택해서 불러오기</button>
+                            <span class="text-xs text-slate-500">친구에게 받은 `.json` 세트 파일을 업로드하여 추가합니다.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 공유 마켓 상세 보기 모달 -->
+    <div id="market-detail-modal" class="fixed inset-0 bg-bgDeep/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-bgCard border border-borderSubtle rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-borderSubtle bg-bgInput">
+                <h3 id="market-detail-title" class="text-lg font-bold text-white">세트 미리보기</h3>
+                <button id="close-market-detail-btn" class="text-slate-400 hover:text-white p-1 rounded-lg transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto custom-scrollbar flex flex-col gap-4">
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                    <span id="market-detail-author">작성자: -</span>
+                    <span id="market-detail-category">카테고리: -</span>
+                </div>
+                <div class="bg-bgInput border border-borderSubtle rounded-xl p-4 text-sm text-slate-200 max-h-[250px] overflow-y-auto custom-scrollbar flex flex-col gap-1.5 leading-relaxed" id="market-detail-sentences">
+                    <!-- 문장 미리보기 -->
+                </div>
+            </div>
+            <div class="px-6 py-4 border-t border-borderSubtle bg-bgInput flex items-center justify-end gap-3">
+                <button id="market-detail-import-btn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold px-5 py-2.5 rounded-xl transition text-sm shadow-md">내 목록에 가져오기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 토스트 알림 -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-bgCard border border-emerald-500/40 text-white px-5 py-3 rounded-2xl shadow-2xl z-50 transition-all duration-300 transform translate-y-16 opacity-0 flex items-center gap-3">
+        <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+        <span id="toast-msg" class="text-sm font-medium">알림 메시지</span>
+    </div>
+
+    <!-- Firebase SDK (Modular ESM) 및 앱 메인 스크립트 -->
+    <script type="module">
+        // ====== FIREBASE CONFIG ======
+        let firebaseConfig = {
+            apiKey: "AIzaSyAjihLHr2Pizuf6XRMLESl8deSma8Ww4SE",
+            authDomain: "typing-practice-7e3dd.firebaseapp.com",
+            projectId: "typing-practice-7e3dd",
+            storageBucket: "typing-practice-7e3dd.firebasestorage.app",
+            messagingSenderId: "287772503091",
+            appId: "1:287772503091:web:ecffbd055b730d73268746",
+            measurementId: "G-XZ9XRY3EP4"
+        };
+
+        let db = null;
+        let collection = null, addDoc = null, getDocs = null, deleteDoc = null, doc = null, query = null, orderBy = null;
+
+        async function initFirebase() {
+            try {
+                const appModule = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js");
+                const fsModule = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+                
+                const app = appModule.initializeApp(firebaseConfig);
+                db = fsModule.getFirestore(app);
+                collection = fsModule.collection;
+                addDoc = fsModule.addDoc;
+                getDocs = fsModule.getDocs;
+                deleteDoc = fsModule.deleteDoc;
+                doc = fsModule.doc;
+                query = fsModule.query;
+                orderBy = fsModule.orderBy;
+            } catch (err) {
+                console.warn("Firebase initialization skipped or failed:", err);
+            }
+        }
+        initFirebase();
+
+        // ---------------------------------------------------------
+        // 한글 자소 분리 및 타자 분석 유틸리티
+        // ---------------------------------------------------------
+        const JUNG = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+        const JONG = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+
+        const COMP_MAP = {
+            'ㄳ': ['ㄱ', 'ㅅ'], 'ㄵ': ['ㄴ', 'ㅈ'], 'ㄶ': ['ㄴ', 'ㅎ'],
+            'ㄺ': ['ㄹ', 'ㄱ'], 'ㄻ': ['ㄹ', 'ㅁ'], 'ㄼ': ['ㄹ', 'ㅂ'],
+            'ㄽ': ['ㄹ', 'ㅅ'], 'ㄾ': ['ㄹ', 'ㅌ'], 'ㄿ': ['ㄹ', 'ㅍ'],
+            'ㅀ': ['ㄹ', 'ㅎ'], 'ㅄ': ['ㅂ', 'ㅅ'],
+            'ㅘ': ['ㅗ', 'ㅏ'], 'ㅙ': ['ㅗ', 'ㅐ'], 'ㅚ': ['ㅗ', 'ㅣ'],
+            'ㅝ': ['ㅜ', 'ㅓ'], 'ㅞ': ['ㅜ', 'ㅔ'], 'ㅟ': ['ㅜ', 'ㅣ'],
+            'ㅢ': ['ㅡ', 'ㅣ'],
+            'ㄲ': ['ㄱ', 'ㄱ'], 'ㄸ': ['ㄷ', 'ㄷ'], 'ㅃ': ['ㅂ', 'ㅂ'],
+            'ㅆ': ['ㅅ', 'ㅅ'], 'ㅉ': ['ㅈ', 'ㅈ'], 'ㅒ': ['ㅣ', 'ㅐ'],
+            'ㅖ': ['ㅣ', 'ㅔ']
+        };
+
+        function getJamoCount(char) {
+            const code = char.charCodeAt(0);
+            if (code >= 0xAC00 && code <= 0xD7A3) {
+                const syl = code - 0xAC00;
+                const jungIdx = Math.floor((syl % 588) / 28);
+                const jongIdx = syl % 28;
+                
+                let count = 1;
+                const jung = JUNG[jungIdx];
+                count += COMP_MAP[jung] ? COMP_MAP[jung].length : 1;
+                if (jongIdx > 0) {
+                    const jong = JONG[jongIdx];
+                    count += COMP_MAP[jong] ? COMP_MAP[jong].length : 1;
+                }
+                return count;
+            } else if (COMP_MAP[char]) {
+                return COMP_MAP[char].length;
+            } else {
+                return 1;
+            }
+        }
+
+        function getStrJamoCount(str) {
+            let cnt = 0;
+            for (let i = 0; i < str.length; i++) {
+                cnt += getJamoCount(str[i]);
+            }
+            return cnt;
+        }
+
+        // ---------------------------------------------------------
+        // 기본 큐레이션 세트 데이터
+        // ---------------------------------------------------------
+        const DEFAULT_SETS = [
+            {
+                id: "default-set-1",
+                title: "일반 타자연습 - 기본 연습문",
+                category: "기타",
+                sentences: [
+                    "정확한 타자 실력은 손을 무작정 빠르게 움직이는 데서 나오지 않고, 문장의 흐름을 읽으며 일정한 리듬으로 끝까지 입력하는 습관에서 자란다.",
+                    "작은 습관들이 모여 우리의 하루를 만들고, 그 하루들이 쌓여 멋진 미래와 인생을 완성해 나간다.",
+                    "프로그래밍은 컴퓨터와 나누는 정교한 대화이며, 논리적인 생각과 창의적인 해결책이 어우러지는 예술이다.",
+                    "실패는 끝이 아니라 더 나은 방향으로 나아갈 수 있는 소중한 배움과 경험의 기회이다.",
+                    "오늘 흘린 노력의 땀방울은 내일의 눈부신 성취와 기쁨으로 반드시 돌아오게 되어 있다."
+                ]
+            },
+            {
+                id: "default-set-lyrics-1",
+                title: "아이유 - 밤편지 (가사 모음)",
+                category: "노래가사",
+                sentences: [
+                    "이 밤 그날의 반딧불을 당신의 창 가까이 보낼게요.",
+                    "음 음 음 음 사랑한다는 말.",
+                    "나 우리의 첫 여름밤의 꿈은",
+                    "오랜 이별 뒤에 남겨진 벤치처럼",
+                    "어두운 방안에서 조용히 너를 떠올려."
+                ]
+            },
+            {
+                id: "default-set-quotes-1",
+                title: "세상의 명언 & 어록",
+                category: "명언/어록",
+                sentences: [
+                    "삶이 있는 한 희망은 있다. - 키케로",
+                    "피할 수 없으면 즐겨라. - 로버트 엘리엇",
+                    "네 믿음은 네가 된다. - 마하트마 간디",
+                    "어제와 다른 삶을 살려면 다른 선택을 해야 한다. - 아인슈타인",
+                    "절대 포기하지 마라. 인생은 끈기다. - 윈스턴 처칠"
+                ]
+            }
+        ];
+
+        // ---------------------------------------------------------
+        // 전역 상태 관리
+        // ---------------------------------------------------------
+        let userSets = [];
+        let currentSetId = "default-set-1";
+        let currentSentenceIdx = 0;
+        let practiceMode = "sequential";
+        let shuffledQueue = [];
+        let currentCategoryFilter = "전체";
+
+        let isPracticing = false;
+        let isComposing = false;
+        let startTime = null;
+        let timerInterval = null;
+        let totalErrorsInSentence = 0;
+        let fixCountInSentence = 0;
+        let lastInputLength = 0;
+        let hasErrorOccurredInCurrent = false;
+        let errorFirstTime = null;
+        let firstFixTime = null;
+        let historyList = [];
+
+        // DOM Elements
+        const headerSetTitle = document.getElementById("header-set-title");
+        const headerCategoryBadge = document.getElementById("header-category-badge");
+        const headerBreadcrumb = document.getElementById("header-breadcrumb");
+        const setSelect = document.getElementById("set-select");
+        const targetDisplay = document.getElementById("target-display");
+        const typingInput = document.getElementById("typing-input");
+        const currentCharCountSpan = document.getElementById("current-char-count");
+        const totalCharCountSpan = document.getElementById("total-char-count");
+        const liveSpeedSpan = document.getElementById("live-speed");
+        const liveAccuracySpan = document.getElementById("live-accuracy");
+        const liveErrorsSpan = document.getElementById("live-errors");
+        const statusText = document.getElementById("status-text");
+        const statusBadge = document.getElementById("status-badge");
+        const recoveryMetrics = document.getElementById("recovery-metrics");
+        const nextSentenceBtn = document.getElementById("next-sentence-btn");
+        const retrySentenceBtn = document.getElementById("retry-sentence-btn");
+        const modeToggleBtn = document.getElementById("mode-toggle-btn");
+        const cumulativeFooterStats = document.getElementById("cumulative-footer-stats");
+        
+        const historyTotalCount = document.getElementById("history-total-count");
+        const historyListEl = document.getElementById("history-list");
+        const summaryTotalCompleted = document.getElementById("summary-total-completed");
+        const summaryAvgSpeed = document.getElementById("summary-avg-speed");
+        const summaryAvgAccuracy = document.getElementById("summary-avg-accuracy");
+        const summaryTotalErrors = document.getElementById("summary-total-errors");
+        const summaryTotalFixes = document.getElementById("summary-total-fixes");
+        const toggleHistoryViewBtn = document.getElementById("toggle-history-view-btn");
+        const exportCsvBtn = document.getElementById("export-csv-btn");
+        const exportJsonBtn = document.getElementById("export-json-btn");
+        const clearHistoryBtn = document.getElementById("clear-history-btn");
+
+        const managerModal = document.getElementById("manager-modal");
+        const openManagerBtn = document.getElementById("open-manager-btn");
+        const closeManagerBtn = document.getElementById("close-manager-btn");
+        const managerSetList = document.getElementById("manager-set-list");
+        const newSetTitleInput = document.getElementById("new-set-title-input");
+        const newSetCategorySelect = document.getElementById("new-set-category-select");
+        const newSetSentencesInput = document.getElementById("new-set-sentences-input");
+        const saveNewSetBtn = document.getElementById("save-new-set-btn");
+        const saveAndPublishBtn = document.getElementById("save-and-publish-btn");
+        const marketModalBtn = document.getElementById("open-market-btn");
+        
+        const marketDetailModal = document.getElementById("market-detail-modal");
+        const closeMarketDetailBtn = document.getElementById("close-market-detail-btn");
+        const marketDetailTitle = document.getElementById("market-detail-title");
+        const marketDetailAuthor = document.getElementById("market-detail-author");
+        const marketDetailCategory = document.getElementById("market-detail-category");
+        const marketDetailSentences = document.getElementById("market-detail-sentences");
+        const marketDetailImportBtn = document.getElementById("market-detail-import-btn");
+        let activeMarketSetData = null;
+
+        // ---------------------------------------------------------
+        // 초기화
+        // ---------------------------------------------------------
+        function initApp() {
+            loadSetsFromStorage();
+            loadHistoryFromStorage();
+            updateCategoryCounts();
+            populateSetSelect();
+            selectSet(currentSetId, false);
+            renderHistoryAndSummary();
+
+            setSelect.addEventListener("change", (e) => selectSet(e.target.value, true));
+            typingInput.addEventListener("compositionstart", () => { isComposing = true; });
+            typingInput.addEventListener("compositionend", () => { isComposing = false; handleTypingInput(); });
+            typingInput.addEventListener("input", handleTypingInput);
+            typingInput.addEventListener("keydown", handleTypingKeydown);
+            nextSentenceBtn.addEventListener("click", () => nextSentence(true));
+            retrySentenceBtn.addEventListener("click", resetCurrentSentence);
+            modeToggleBtn.addEventListener("click", togglePracticeMode);
+
+            document.getElementById("reset-default-btn").addEventListener("click", () => {
+                if (confirm("기본 세트와 설정을 초기화하시겠습니까? (작성하신 커스텀 세트는 유지됩니다)")) {
+                    currentSetId = "default-set-1";
+                    currentSentenceIdx = 0;
+                    selectSet(currentSetId, true);
+                    showToast("초기화되었습니다.");
+                }
+            });
+
+            openManagerBtn.addEventListener("click", () => { managerModal.classList.remove("hidden"); renderManagerSetList(); });
+            closeManagerBtn.addEventListener("click", () => managerModal.classList.add("hidden"));
+            marketModalBtn.addEventListener("click", () => { managerModal.classList.remove("hidden"); switchManagerTab("market"); fetchCloudMarketSets(); });
+            
+            saveNewSetBtn.addEventListener("click", () => saveNewCustomSet(false));
+            saveAndPublishBtn.addEventListener("click", () => saveNewCustomSet(true));
+
+            document.querySelectorAll(".category-filter-tab").forEach(tab => {
+                tab.addEventListener("click", (e) => {
+                    document.querySelectorAll(".category-filter-tab").forEach(t => {
+                        t.className = "category-filter-tab px-4 py-2 rounded-xl text-sm font-medium transition bg-bgCard hover:bg-slate-800/80 text-slate-300 border border-borderSubtle flex-shrink-0";
+                    });
+                    e.currentTarget.className = "category-filter-tab px-4 py-2 rounded-xl text-sm font-medium transition bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/10 flex-shrink-0";
+                    currentCategoryFilter = e.currentTarget.getAttribute("data-cat");
+                    populateSetSelect();
+                });
+            });
+
+            document.querySelectorAll(".manager-tab").forEach(tab => {
+                tab.addEventListener("click", (e) => {
+                    const tabName = e.currentTarget.getAttribute("data-tab");
+                    switchManagerTab(tabName);
+                });
+            });
+
+            toggleHistoryViewBtn.addEventListener("click", () => {
+                const isHidden = historyListEl.classList.toggle("hidden");
+                toggleHistoryViewBtn.textContent = isHidden ? "기록 펼치기" : "기록 접기";
+            });
+            exportCsvBtn.addEventListener("click", exportHistoryCSV);
+            exportJsonBtn.addEventListener("click", exportHistoryJSON);
+            clearHistoryBtn.addEventListener("click", clearHistory);
+
+            document.getElementById("export-all-json-btn").addEventListener("click", exportAllSetsJSON);
+            document.getElementById("trigger-import-json-btn").addEventListener("click", () => document.getElementById("import-json-file-input").click());
+            document.getElementById("import-json-file-input").addEventListener("change", importAllSetsJSON);
+            
+            document.getElementById("trigger-single-json-btn").addEventListener("click", () => document.getElementById("import-single-json-input").click());
+            document.getElementById("import-single-json-input").addEventListener("change", importSingleJSON);
+
+            document.getElementById("apply-share-code-btn").addEventListener("click", applyShareCode);
+            document.getElementById("refresh-market-btn").addEventListener("click", fetchCloudMarketSets);
+            
+            closeMarketDetailBtn.addEventListener("click", () => marketDetailModal.classList.add("hidden"));
+            marketDetailImportBtn.addEventListener("click", importSelectedMarketSet);
+            
+            document.getElementById("market-search-input").addEventListener("input", filterCloudMarketSetsLocally);
+            document.getElementById("market-category-select").addEventListener("change", filterCloudMarketSetsLocally);
+        }
+
+        function loadSetsFromStorage() {
+            try {
+                const saved = localStorage.getItem("ts_custom_sets_v2");
+                if (saved) {
+                    userSets = JSON.parse(saved);
+                } else {
+                    userSets = [...DEFAULT_SETS];
+                    saveSetsToStorage();
+                }
+            } catch (e) {
+                userSets = [...DEFAULT_SETS];
+            }
+        }
+
+        function saveSetsToStorage() {
+            localStorage.setItem("ts_custom_sets_v2", JSON.stringify(userSets));
+        }
+
+        function loadHistoryFromStorage() {
+            try {
+                const saved = localStorage.getItem("ts_practice_history_v2");
+                if (saved) historyList = JSON.parse(saved);
+            } catch (e) { historyList = []; }
+        }
+
+        function saveHistoryToStorage() {
+            localStorage.setItem("ts_practice_history_v2", JSON.stringify(historyList));
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            document.getElementById("toast-msg").textContent = msg;
+            toast.classList.remove("translate-y-16", "opacity-0");
+            setTimeout(() => {
+                toast.classList.add("translate-y-16", "opacity-0");
+            }, 3000);
+        }
+
+        // ---------------------------------------------------------
+        // 세트 선택 및 렌더링
+        // ---------------------------------------------------------
+        function populateSetSelect() {
+            setSelect.innerHTML = "";
+            let filtered = userSets;
+            if (currentCategoryFilter !== "전체") {
+                filtered = userSets.filter(s => s.category === currentCategoryFilter);
+            }
+
+            if (filtered.length === 0) {
+                const opt = document.createElement("option");
+                opt.value = "";
+                opt.textContent = `[${currentCategoryFilter}] 세트 없음`;
+                setSelect.appendChild(opt);
+                return;
+            }
+
+            filtered.forEach(s => {
+                const opt = document.createElement("option");
+                opt.value = s.id;
+                opt.textContent = `${s.title} (${s.sentences.length})`;
+                setSelect.appendChild(opt);
+            });
+
+            const exists = filtered.some(s => s.id === currentSetId);
+            if (!exists && filtered.length > 0) {
+                currentSetId = filtered[0].id;
+            }
+            setSelect.value = currentSetId;
+        }
+
+        function updateCategoryCounts() {
+            const counts = { "전체": userSets.length, "노래가사": 0, "짧은 문장": 0, "긴 글": 0, "책 구절": 0, "명언/어록": 0, "기타": 0 };
+            userSets.forEach(s => {
+                if (counts[s.category] !== undefined) counts[s.category]++;
+                else counts["기타"]++;
+            });
+            document.getElementById("count-all").textContent = counts["전체"];
+            document.getElementById("count-lyrics").textContent = counts["노래가사"];
+            document.getElementById("count-short").textContent = counts["짧은 문장"];
+            document.getElementById("count-long").textContent = counts["긴 글"];
+            document.getElementById("count-book").textContent = counts["책 구절"];
+            document.getElementById("count-quote").textContent = counts["명언/어록"];
+            document.getElementById("count-etc").textContent = counts["기타"];
+        }
+
+        function selectSet(setId, resetIdx = true) {
+            const setObj = userSets.find(s => s.id === setId);
+            if (!setObj) return;
+            currentSetId = setId;
+            if (resetIdx) {
+                currentSentenceIdx = 0;
+                initShuffleQueue(setObj.sentences.length);
+            }
+
+            headerSetTitle.textContent = setObj.title;
+            headerCategoryBadge.textContent = setObj.category;
+            updateBreadcrumb();
+            loadCurrentSentence();
+        }
+
+        function initShuffleQueue(length) {
+            shuffledQueue = Array.from({length}, (_, i) => i);
+            for (let i = shuffledQueue.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledQueue[i], shuffledQueue[j]] = [shuffledQueue[j], shuffledQueue[i]];
+            }
+        }
+
+        function updateBreadcrumb() {
+            const setObj = userSets.find(s => s.id === currentSetId);
+            if (!setObj) return;
+            const total = setObj.sentences.length;
+            const displayIdx = practiceMode === "sequential" ? currentSentenceIdx + 1 : (shuffledQueue.indexOf(currentSentenceIdx) + 1 || 1);
+            headerBreadcrumb.textContent = `타자연습 편집 · ${setObj.category} · ${setObj.title} · 문장 ${displayIdx} / ${total}`;
+        }
+
+        function getCurrentSentenceText() {
+            const setObj = userSets.find(s => s.id === currentSetId);
+            if (!setObj || setObj.sentences.length === 0) return "";
+            let idx = currentSentenceIdx;
+            if (practiceMode === "shuffle") {
+                idx = shuffledQueue[currentSentenceIdx % shuffledQueue.length];
+            }
+            return setObj.sentences[idx] || "";
+        }
+
+        // ---------------------------------------------------------
+        // 타자 연습 로직 및 실시간 비교
+        // ---------------------------------------------------------
+        function loadCurrentSentence() {
+            const text = getCurrentSentenceText();
+            typingInput.value = "";
+            typingInput.disabled = false;
+            typingInput.focus();
+
+            isPracticing = false;
+            isComposing = false;
+            startTime = null;
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = null;
+
+            totalErrorsInSentence = 0;
+            fixCountInSentence = 0;
+            lastInputLength = 0;
+            hasErrorOccurredInCurrent = false;
+            errorFirstTime = null;
+            firstFixTime = null;
+
+            liveSpeedSpan.textContent = "0";
+            liveAccuracySpan.textContent = "100";
+            liveErrorsSpan.textContent = "0";
+            statusText.textContent = "입력을 시작하면 속도, 정확도, 오타 위치가 실시간으로 표시됩니다.";
+            statusBadge.textContent = "대기 중";
+            statusBadge.className = "px-3 py-1 rounded-xl text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700";
+            recoveryMetrics.textContent = "준비 완료";
+
+            const targetLen = Array.from(text).length;
+            totalCharCountSpan.textContent = targetLen;
+            currentCharCountSpan.textContent = "0";
+            updateBreadcrumb();
+            renderTargetComparison("");
+        }
+
+        function handleTypingInput() {
+            const targetText = getCurrentSentenceText();
+            const inputText = typingInput.value;
+            const targetChars = Array.from(targetText);
+            const inputChars = Array.from(inputText);
+            
+            const currentLen = inputChars.length;
+            currentCharCountSpan.textContent = currentLen;
+
+            if (!isPracticing && currentLen > 0) {
+                isPracticing = true;
+                startTime = performance.now();
+                timerInterval = setInterval(updateLiveMetricsTimer, 200);
+                statusBadge.textContent = "진행 중";
+                statusBadge.className = "px-3 py-1 rounded-xl text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+            }
+
+            if (currentLen < lastInputLength) {
+                fixCountInSentence += (lastInputLength - currentLen);
+                if (hasErrorOccurredInCurrent && firstFixTime === null) {
+                    firstFixTime = performance.now();
+                    const diff = (firstFixTime - errorFirstTime).toFixed(0);
+                    recoveryMetrics.textContent = `첫 수정 반응: ${diff}ms`;
+                }
+            }
+            lastInputLength = currentLen;
+
+            let errors = 0;
+            const compareLimit = isComposing ? Math.max(0, inputChars.length - 1) : inputChars.length;
+            for (let i = 0; i < compareLimit; i++) {
+                if (i >= targetChars.length || inputChars[i] !== targetChars[i]) {
+                    errors++;
+                    if (!hasErrorOccurredInCurrent) {
+                        hasErrorOccurredInCurrent = true;
+                        errorFirstTime = performance.now();
+                    }
+                }
+            }
+
+            if (errors > 0 && errors > totalErrorsInSentence) {
+                totalErrorsInSentence = errors;
+            }
+
+            liveErrorsSpan.textContent = totalErrorsInSentence;
+            renderTargetComparison(inputText);
+            updateLiveMetricsTimer();
+        }
+
+        function handleTypingKeydown(e) {
+            if (e.isComposing || e.keyCode === 229) return;
+            const targetText = getCurrentSentenceText();
+            const targetChars = Array.from(targetText);
+            const inputChars = Array.from(typingInput.value);
+
+            if (e.key === "Enter" || e.key === " ") {
+                if (inputChars.length >= targetChars.length) {
+                    e.preventDefault();
+                    completeSentence();
+                } else if (e.key === "Enter") {
+                    e.preventDefault();
+                    showToast(`글자 수가 부족합니다! (${inputChars.length} / ${targetChars.length}자)`);
+                }
+            }
+        }
+
+        function renderTargetComparison(inputText) {
+            const targetText = getCurrentSentenceText();
+            const targetChars = Array.from(targetText);
+            const inputChars = Array.from(inputText);
+            let html = "";
+
+            for (let i = 0; i < targetChars.length; i++) {
+                const char = targetChars[i];
+                if (i < inputChars.length) {
+                    if (isComposing && i === inputChars.length - 1) {
+                        html += `<span class="text-slate-200 border-b-2 border-emerald-400">${escapeHtml(char)}</span>`;
+                    } else if (inputChars[i] === char) {
+                        html += `<span class="text-emerald-400">${escapeHtml(char)}</span>`;
+                    } else {
+                        html += `<span class="text-rose-400 bg-rose-500/15 underline decoration-rose-500">${escapeHtml(char)}</span>`;
+                    }
+                } else if (i === inputChars.length) {
+                    html += `<span class="text-white border-b-2 border-emerald-400">${escapeHtml(char)}</span>`;
+                } else {
+                    html += `<span class="text-slate-400">${escapeHtml(char)}</span>`;
+                }
+            }
+            targetDisplay.innerHTML = html;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function updateLiveMetricsTimer() {
+            if (!startTime || !isPracticing) return;
+            const elapsedMin = (performance.now() - startTime) / 60000;
+            if (elapsedMin <= 0) return;
+
+            const inputText = typingInput.value;
+            const typedJamo = getStrJamoCount(inputText);
+            const speed = Math.round(typedJamo / elapsedMin);
+            liveSpeedSpan.textContent = speed;
+
+            const targetChars = Array.from(getCurrentSentenceText());
+            const inputChars = Array.from(inputText);
+            let matchCount = 0;
+            for (let i = 0; i < inputChars.length; i++) {
+                if (i < targetChars.length && inputChars[i] === targetChars[i]) matchCount++;
+            }
+            const accuracy = inputChars.length > 0 ? Math.max(0, Math.round((matchCount / inputChars.length) * 100)) : 100;
+            liveAccuracySpan.textContent = accuracy;
+        }
+
+        function completeSentence() {
+            if (timerInterval) clearInterval(timerInterval);
+            isPracticing = false;
+
+            const targetText = getCurrentSentenceText();
+            const inputText = typingInput.value;
+            const elapsedSec = startTime ? (performance.now() - startTime) / 1000 : 1;
+            const elapsedMin = Math.max(elapsedSec / 60, 0.001);
+            
+            const typedJamo = getStrJamoCount(inputText);
+            const speed = Math.round(typedJamo / elapsedMin);
+
+            const targetChars = Array.from(targetText);
+            const inputChars = Array.from(inputText);
+            let matchCount = 0;
+            for (let i = 0; i < inputChars.length; i++) {
+                if (i < targetChars.length && inputChars[i] === targetChars[i]) matchCount++;
+            }
+            const accuracy = inputChars.length > 0 ? Math.max(0, Math.round((matchCount / inputChars.length) * 100)) : 100;
+
+            let finalErrors = 0;
+            for (let i = 0; i < inputChars.length; i++) {
+                if (i >= targetChars.length || inputChars[i] !== targetChars[i]) finalErrors++;
+            }
+
+            const setObj = userSets.find(s => s.id === currentSetId);
+            const historyItem = {
+                id: "hist-" + Date.now() + "-" + Math.random().toString(36).substr(2, 4),
+                setTitle: setObj ? setObj.title : "기본 세트",
+                category: setObj ? setObj.category : "기타",
+                timestamp: new Date().toLocaleString(),
+                targetText: targetText,
+                inputText: inputText,
+                speed: speed,
+                accuracy: accuracy,
+                finalErrors: finalErrors,
+                totalErrors: Math.max(totalErrorsInSentence, finalErrors),
+                fixCount: fixCountInSentence,
+                totalChars: targetChars.length
+            };
+
+            historyList.unshift(historyItem);
+            saveHistoryToStorage();
+            renderHistoryAndSummary();
+            showToast("문장 완료! 기록이 저장되었습니다.");
+
+            nextSentence(false);
+        }
+
+        function nextSentence(manual = false) {
+            const setObj = userSets.find(s => s.id === currentSetId);
+            if (!setObj || setObj.sentences.length === 0) return;
+
+            currentSentenceIdx++;
+            if (currentSentenceIdx >= setObj.sentences.length) {
+                currentSentenceIdx = 0;
+                if (practiceMode === "shuffle") {
+                    initShuffleQueue(setObj.sentences.length);
+                }
+                if (manual) showToast("세트의 마지막 문장입니다. 처음으로 돌아갑니다.");
+            }
+            loadCurrentSentence();
+        }
+
+        function resetCurrentSentence() {
+            loadCurrentSentence();
+            showToast("현재 문장을 초기화했습니다.");
+        }
+
+        function togglePracticeMode() {
+            if (practiceMode === "sequential") {
+                practiceMode = "shuffle";
+                modeToggleBtn.textContent = "셔플 모드";
+                const setObj = userSets.find(s => s.id === currentSetId);
+                if (setObj) initShuffleQueue(setObj.sentences.length);
+                showToast("셔플 모드로 전환되었습니다.");
+            } else {
+                practiceMode = "sequential";
+                modeToggleBtn.textContent = "순서대로 (1→끝)";
+                currentSentenceIdx = 0;
+                showToast("순서대로 모드로 전환되었습니다.");
+            }
+            loadCurrentSentence();
+        }
+
+        // ---------------------------------------------------------
+        // 상세 기록 및 요약 통계 렌더링
+        // ---------------------------------------------------------
+        function renderHistoryAndSummary() {
+            historyTotalCount.textContent = `총 ${historyList.length}건`;
+            summaryTotalCompleted.textContent = `${historyList.length}문장`;
+
+            if (historyList.length === 0) {
+                summaryAvgSpeed.textContent = "0타/분";
+                summaryAvgAccuracy.textContent = "100%";
+                summaryTotalErrors.textContent = "0회 / 0회";
+                summaryTotalFixes.textContent = "0회";
+                cumulativeFooterStats.textContent = "완료 0문장 · 누적 평균 0타/분 · 정확도 100%";
+                historyListEl.innerHTML = `<div class="text-center py-10 text-slate-500 text-sm">완료된 연습 기록이 없습니다. 문장을 입력한 뒤 Spacebar 또는 Enter를 누르면 상세 기록이 이곳에 누적됩니다.</div>`;
+                return;
+            }
+
+            let totalSpeed = 0, totalAcc = 0, totalFinalErr = 0, totalOccurErr = 0, totalFix = 0;
+            historyList.forEach(h => {
+                totalSpeed += h.speed;
+                totalAcc += h.accuracy;
+                totalFinalErr += h.finalErrors;
+                totalOccurErr += h.totalErrors;
+                totalFix += h.fixCount;
+            });
+
+            const avgSpd = Math.round(totalSpeed / historyList.length);
+            const avgAcc = Math.round(totalAcc / historyList.length);
+
+            summaryAvgSpeed.textContent = avgSpd + "타/분";
+            summaryAvgAccuracy.textContent = avgAcc + "%";
+            summaryTotalErrors.textContent = `${totalFinalErr}회 / ${totalOccurErr}회`;
+            summaryTotalFixes.textContent = `${totalFix}회`;
+            cumulativeFooterStats.textContent = `완료 ${historyList.length}문장 · 누적 평균 ${avgSpd}타/분 · 정확도 ${avgAcc}%`;
+
+            let html = "";
+            historyList.forEach((h, index) => {
+                const seq = historyList.length - index;
+                let compHtml = "";
+                const targetArr = Array.from(h.targetText);
+                const inputArr = Array.from(h.inputText);
+                for (let i = 0; i < targetArr.length; i++) {
+                    const ch = targetArr[i];
+                    if (i < inputArr.length) {
+                        if (inputArr[i] === ch) compHtml += `<span class="text-emerald-400">${escapeHtml(ch)}</span>`;
+                        else compHtml += `<span class="text-rose-400 underline">${escapeHtml(ch)}</span>`;
+                    } else {
+                        compHtml += `<span class="text-slate-500">${escapeHtml(ch)}</span>`;
+                    }
+                }
+
+                html += `
+                    <div class="bg-bgInput border border-borderSubtle rounded-xl p-4 flex flex-col gap-2.5 text-xs font-mono shadow-sm">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-borderSubtle pb-2">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold">#${seq}</span>
+                                <span class="text-white font-semibold">${escapeHtml(h.setTitle)}</span>
+                                <span class="text-slate-400 text-[11px]">(${h.category})</span>
+                            </div>
+                            <div class="text-slate-500 text-[11px]">${h.timestamp}</div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <div class="text-slate-400 text-[11px]">제시문 vs 입력 비교:</div>
+                            <div class="text-sm tracking-normal whitespace-pre-wrap bg-bgCard p-2.5 rounded-lg border border-borderSubtle break-keep">${compHtml}</div>
+                        </div>
+                        <div class="flex flex-wrap items-center justify-between gap-4 pt-1 text-slate-300">
+                            <div class="flex items-center gap-4">
+                                <span>속도: <strong class="text-emerald-400">${h.speed}타/분</strong></span>
+                                <span>정확도: <strong class="text-emerald-400">${h.accuracy}%</strong></span>
+                            </div>
+                            <div class="flex items-center gap-4 text-slate-400">
+                                <span>틀린 횟수(최종/발생): <strong class="text-rose-400">${h.finalErrors}회 / ${h.totalErrors}회</strong></span>
+                                <span>수정 키 횟수: <strong class="text-amber-400">${h.fixCount}회</strong></span>
+                                <button class="delete-history-item-btn text-rose-400 hover:text-rose-300 underline ml-2" data-id="${h.id}">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            historyListEl.innerHTML = html;
+
+            document.querySelectorAll(".delete-history-item-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const id = e.currentTarget.getAttribute("data-id");
+                    historyList = historyList.filter(item => item.id !== id);
+                    saveHistoryToStorage();
+                    renderHistoryAndSummary();
+                    showToast("기록 항목이 삭제되었습니다.");
+                });
+            });
+        }
+
+        function clearHistory() {
+            if (confirm("모든 연습 기록을 삭제하시겠습니까?")) {
+                historyList = [];
+                saveHistoryToStorage();
+                renderHistoryAndSummary();
+                showToast("전체 기록이 초기화되었습니다.");
+            }
+        }
+
+        function exportHistoryCSV() {
+            if (historyList.length === 0) {
+                showToast("내보낼 기록이 없습니다.");
+                return;
+            }
+            let csv = "\uFEFF순번,세트명,카테고리,완료시각,제시문,입력문,속도(타/분),정확도(%),최종오타,발생오타,수정키횟수\n";
+            historyList.forEach((h, idx) => {
+                const seq = historyList.length - idx;
+                csv += `"${seq}","${h.setTitle}","${h.category}","${h.timestamp}","${h.targetText}","${h.inputText}",${h.speed},${h.accuracy},${h.finalErrors},${h.totalErrors},${h.fixCount}\n`;
+            });
+            const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `typing_practice_history_${Date.now()}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("CSV 파일로 내보냈습니다.");
+        }
+
+        function exportHistoryJSON() {
+            if (historyList.length === 0) {
+                showToast("내보낼 기록이 없습니다.");
+                return;
+            }
+            const blob = new Blob([JSON.stringify(historyList, null, 2)], { type: "application/json;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `typing_practice_history_${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("JSON 기록 파일로 내보냈습니다.");
+        }
+
+        // ---------------------------------------------------------
+        // 문장 세트 관리 및 공유 기능
+        // ---------------------------------------------------------
+        function switchManagerTab(tabName) {
+            document.querySelectorAll(".manager-tab").forEach(t => {
+                t.className = "manager-tab px-4 py-2 rounded-xl text-sm font-semibold transition bg-bgInput hover:bg-slate-800 text-slate-300 border border-borderSubtle";
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).className = "manager-tab px-4 py-2 rounded-xl text-sm font-semibold transition bg-emerald-500 text-slate-950 shadow-sm";
+
+            document.getElementById("tab-create").classList.add("hidden");
+            document.getElementById("tab-list").classList.add("hidden");
+            document.getElementById("tab-market").classList.add("hidden");
+            document.getElementById("tab-import").classList.add("hidden");
+
+            document.getElementById(`tab-${tabName}`).classList.remove("hidden");
+
+            if (tabName === "list") renderManagerSetList();
+            if (tabName === "market") fetchCloudMarketSets();
+        }
+
+        function saveNewCustomSet(publishToCloud = false) {
+            const title = newSetTitleInput.value.trim();
+            const category = newSetCategorySelect.value;
+            const rawSentences = newSetSentencesInput.value.trim();
+
+            if (!title) {
+                showToast("세트 제목을 입력해주세요.");
+                return;
+            }
+            if (!rawSentences) {
+                showToast("연습할 문장들을 입력해주세요.");
+                return;
+            }
+
+            const sentences = rawSentences.split("\n").map(s => s.trim()).filter(s => s.length > 0);
+            if (sentences.length === 0) {
+                showToast("유효한 문장이 없습니다.");
+                return;
+            }
+
+            const newSet = {
+                id: "custom-" + Date.now(),
+                title: title,
+                category: category,
+                sentences: sentences,
+                author: "Ribon"
+            };
+
+            userSets.push(newSet);
+            saveSetsToStorage();
+            updateCategoryCounts();
+            populateSetSelect();
+            selectSet(newSet.id, true);
+
+            newSetTitleInput.value = "";
+            newSetSentencesInput.value = "";
+
+            if (publishToCloud) {
+                publishSetToCloud(newSet);
+            } else {
+                showToast("새 세트가 저장되었습니다.");
+                switchManagerTab("list");
+            }
+        }
+
+        async function publishSetToCloud(setObj) {
+            if (!db || !addDoc || !collection) {
+                showToast("클라우드 연결 상태가 아닙니다. 로컬에만 저장되었습니다.");
+                switchManagerTab("list");
+                return;
+            }
+            try {
+                showToast("모두의 공유 마켓에 업로드 중...");
+                await addDoc(collection(db, "typing_market_sets"), {
+                    title: setObj.title,
+                    category: setObj.category,
+                    sentences: setObj.sentences,
+                    author: setObj.author || "익명 사용자",
+                    createdAt: Date.now()
+                });
+                showToast("공유 마켓에 성공적으로 업로드되었습니다!");
+                switchManagerTab("market");
+                fetchCloudMarketSets();
+            } catch (err) {
+                console.error(err);
+                showToast("업로드 실패: Firebase Firestore 규칙 또는 네트워크를 확인하세요.");
+                switchManagerTab("list");
+            }
+        }
+
+        function renderManagerSetList() {
+            managerSetList.innerHTML = "";
+            if (userSets.length === 0) {
+                managerSetList.innerHTML = `<div class="text-center py-8 text-slate-500 text-sm">등록된 세트가 없습니다.</div>`;
+                return;
+            }
+
+            let html = "";
+            userSets.forEach(s => {
+                const isDefault = s.id.startsWith("default-set");
+                html += `
+                    <div class="bg-bgInput border border-borderSubtle rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-sm">
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center gap-2">
+                                <span class="text-white font-bold">${escapeHtml(s.title)}</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${s.category}</span>
+                            </div>
+                            <span class="text-xs text-slate-400">총 ${s.sentences.length}개 문장</span>
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <button class="publish-existing-btn bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-3 py-1.5 rounded-xl transition" data-id="${s.id}">클라우드 공유</button>
+                            <button class="export-single-json-btn bg-bgCard hover:bg-slate-800 text-slate-300 border border-borderSubtle text-xs px-3 py-1.5 rounded-xl transition" data-id="${s.id}">JSON</button>
+                            <button class="copy-share-code-btn bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-xs px-3 py-1.5 rounded-xl transition" data-id="${s.id}">코드 복사</button>
+                            ${!isDefault ? `<button class="delete-set-btn bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs px-3 py-1.5 rounded-xl transition" data-id="${s.id}">삭제</button>` : `<span class="text-xs text-slate-600 px-2">기본</span>`}
+                        </div>
+                    </div>
+                `;
+            });
+            managerSetList.innerHTML = html;
+
+            managerSetList.querySelectorAll(".publish-existing-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const s = userSets.find(item => item.id === e.currentTarget.getAttribute("data-id"));
+                    if (s) publishSetToCloud(s);
+                });
+            });
+            managerSetList.querySelectorAll(".export-single-json-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => exportSingleSetJSON(e.currentTarget.getAttribute("data-id")));
+            });
+            managerSetList.querySelectorAll(".copy-share-code-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => copySetShareCode(e.currentTarget.getAttribute("data-id")));
+            });
+            managerSetList.querySelectorAll(".delete-set-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => deleteCustomSet(e.currentTarget.getAttribute("data-id")));
+            });
+        }
+
+        function deleteCustomSet(setId) {
+            if (confirm("정말 이 세트를 삭제하시겠습니까?")) {
+                userSets = userSets.filter(s => s.id !== setId);
+                saveSetsToStorage();
+                updateCategoryCounts();
+                populateSetSelect();
+                if (currentSetId === setId && userSets.length > 0) {
+                    selectSet(userSets[0].id, true);
+                }
+                renderManagerSetList();
+                showToast("세트가 삭제되었습니다.");
+            }
+        }
+
+        function exportSingleSetJSON(setId) {
+            const s = userSets.find(item => item.id === setId);
+            if (!s) return;
+            const blob = new Blob([JSON.stringify(s, null, 2)], { type: "application/json;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `typing_set_${s.title.replace(/\s+/g, '_')}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("개별 세트 JSON 파일로 내보냈습니다.");
+        }
+
+        function exportAllSetsJSON() {
+            const blob = new Blob([JSON.stringify(userSets, null, 2)], { type: "application/json;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `typing_all_sets_backup_${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("전체 세트 백업 JSON 파일로 내보냈습니다.");
+        }
+
+        function importAllSetsJSON(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const imported = JSON.parse(event.target.result);
+                    if (Array.isArray(imported)) {
+                        userSets = imported;
+                        saveSetsToStorage();
+                        updateCategoryCounts();
+                        populateSetSelect();
+                        if (userSets.length > 0) selectSet(userSets[0].id, true);
+                        renderManagerSetList();
+                        showToast("전체 백업 세트를 성공적으로 불러왔습니다!");
+                    } else {
+                        showToast("올바르지 않은 백업 파일 형식입니다.");
+                    }
+                } catch (err) {
+                    showToast("JSON 파일 파싱 오류가 발생했습니다.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function importSingleJSON(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const s = JSON.parse(event.target.result);
+                    if (s.title && Array.isArray(s.sentences)) {
+                        s.id = "imported-" + Date.now();
+                        userSets.push(s);
+                        saveSetsToStorage();
+                        updateCategoryCounts();
+                        populateSetSelect();
+                        selectSet(s.id, true);
+                        renderManagerSetList();
+                        showToast(`세트 [${s.title}]를 불러왔습니다!`);
+                        managerModal.classList.add("hidden");
+                    } else {
+                        showToast("올바르지 않은 세트 JSON 형식입니다.");
+                    }
+                } catch (err) {
+                    showToast("JSON 파일 읽기 오류");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function copySetShareCode(setId) {
+            const s = userSets.find(item => item.id === setId);
+            if (!s) return;
+            const jsonStr = JSON.stringify(s);
+            const base64 = btoa(encodeURIComponent(jsonStr));
+            const shareCode = "TS-SHARE:" + base64;
+
+            navigator.clipboard.writeText(shareCode).then(() => {
+                showToast("공유 코드가 클립보드에 복사되었습니다! 친구에게 전달하세요.");
+            }).catch(() => {
+                prompt("아래 공유 코드를 복사하세요:", shareCode);
+            });
+        }
+
+        function applyShareCode() {
+            const codeInput = document.getElementById("share-code-input");
+            const code = codeInput.value.trim();
+            if (!code.startsWith("TS-SHARE:")) {
+                showToast("올바른 TS-SHARE 공유 코드가 아닙니다.");
+                return;
+            }
+            try {
+                const base64 = code.replace("TS-SHARE:", "");
+                const jsonStr = decodeURIComponent(atob(base64));
+                const s = JSON.parse(jsonStr);
+
+                if (s.title && Array.isArray(s.sentences)) {
+                    s.id = "shared-" + Date.now();
+                    userSets.push(s);
+                    saveSetsToStorage();
+                    updateCategoryCounts();
+                    populateSetSelect();
+                    selectSet(s.id, true);
+                    codeInput.value = "";
+                    showToast(`공유 세트 [${s.title}]가 추가되었습니다!`);
+                    managerModal.classList.add("hidden");
+                } else {
+                    showToast("유효하지 않은 공유 데이터입니다.");
+                }
+            } catch (err) {
+                showToast("공유 코드 복원 중 오류가 발생했습니다.");
+            }
+        }
+
+        // ---------------------------------------------------------
+        // 클라우드 마켓 (Firebase Firestore) 연동
+        // ---------------------------------------------------------
+        let cloudMarketCache = [];
+
+        async function fetchCloudMarketSets() {
+            const marketList = document.getElementById("market-list");
+            marketList.innerHTML = `<div class="text-center py-10 text-slate-500 text-sm">공유 마켓에서 세트를 불러오는 중입니다...</div>`;
+
+            if (!db || !getDocs || !collection) {
+                marketList.innerHTML = `<div class="text-center py-10 text-rose-400 text-sm">클라우드 데이터베이스가 연결되지 않았거나 초기화되지 않았습니다.</div>`;
+                return;
+            }
+
+            try {
+                const q = query(collection(db, "typing_market_sets"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                cloudMarketCache = [];
+                querySnapshot.forEach((docSnap) => {
+                    cloudMarketCache.push({
+                        docId: docSnap.id,
+                        ...docSnap.data()
+                    });
+                });
+                renderCloudMarketList(cloudMarketCache);
+            } catch (err) {
+                console.error(err);
+                marketList.innerHTML = `<div class="text-center py-10 text-rose-400 text-sm">마켓 데이터를 불러오는 중 오류가 발생했습니다. Firestore 보안 규칙을 확인하세요.</div>`;
+            }
+        }
+
+        function filterCloudMarketSetsLocally() {
+            const keyword = document.getElementById("market-search-input").value.toLowerCase();
+            const cat = document.getElementById("market-category-select").value;
+
+            const filtered = cloudMarketCache.filter(item => {
+                const matchCat = (cat === "전체" || item.category === cat);
+                const matchKeyword = !keyword || item.title.toLowerCase().includes(keyword) || (item.author && item.author.toLowerCase().includes(keyword)) || item.sentences.some(s => s.toLowerCase().includes(keyword));
+                return matchCat && matchKeyword;
+            });
+            renderCloudMarketList(filtered);
+        }
+
+        function renderCloudMarketList(list) {
+            const marketList = document.getElementById("market-list");
+            if (list.length === 0) {
+                marketList.innerHTML = `<div class="text-center py-10 text-slate-500 text-sm">등록된 공유 세트가 없습니다.</div>`;
+                return;
+            }
+
+            let html = "";
+            list.forEach(item => {
+                const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "-";
+                html += `
+                    <div class="bg-bgInput border border-borderSubtle rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center gap-2">
+                                <span class="text-white font-bold">${escapeHtml(item.title)}</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${item.category}</span>
+                            </div>
+                            <div class="text-xs text-slate-400 flex items-center gap-3">
+                                <span>작성자: <strong class="text-slate-300">${escapeHtml(item.author || "익명")}</strong></span>
+                                <span>문장 수: <strong class="text-slate-300">${item.sentences.length}개</strong></span>
+                                <span>등록일: ${dateStr}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="preview-market-btn bg-bgCard hover:bg-slate-800 text-slate-300 border border-borderSubtle text-xs font-medium px-3 py-2 rounded-xl transition" data-json='${encodeURIComponent(JSON.stringify(item))}'>미리보기</button>
+                            <button class="import-market-btn bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-xs px-3 py-2 rounded-xl transition shadow-sm" data-json='${encodeURIComponent(JSON.stringify(item))}'>가져오기</button>
+                        </div>
+                    </div>
+                `;
+            });
+            marketList.innerHTML = html;
+
+            marketList.querySelectorAll(".preview-market-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const data = JSON.parse(decodeURIComponent(e.currentTarget.getAttribute("data-json")));
+                    openMarketDetailModal(data);
+                });
+            });
+
+            marketList.querySelectorAll(".import-market-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const data = JSON.parse(decodeURIComponent(e.currentTarget.getAttribute("data-json")));
+                    importCloudSetDirect(data);
+                });
+            });
+        }
+
+        function openMarketDetailModal(data) {
+            activeMarketSetData = data;
+            marketDetailTitle.textContent = data.title;
+            marketDetailAuthor.textContent = `작성자: ${data.author || "익명"}`;
+            marketDetailCategory.textContent = `카테고리: ${data.category}`;
+            
+            let sHtml = "";
+            data.sentences.forEach((s, idx) => {
+                sHtml += `<div>${idx + 1}. ${escapeHtml(s)}</div>`;
+            });
+            marketDetailSentences.innerHTML = sHtml;
+            marketDetailModal.classList.remove("hidden");
+        }
+
+        function importSelectedMarketSet() {
+            if (!activeMarketSetData) return;
+            importCloudSetDirect(activeMarketSetData);
+            marketDetailModal.classList.add("hidden");
+        }
+
+        function importCloudSetDirect(data) {
+            const newSet = {
+                id: "cloud-" + Date.now(),
+                title: data.title,
+                category: data.category,
+                sentences: data.sentences,
+                author: data.author
+            };
+            userSets.push(newSet);
+            saveSetsToStorage();
+            updateCategoryCounts();
+            populateSetSelect();
+            selectSet(newSet.id, true);
+            showToast(`[${data.title}] 세트를 성공적으로 가져왔습니다!`);
+            managerModal.classList.add("hidden");
+        }
+
+        document.addEventListener("DOMContentLoaded", initApp);
+    </script>
+</body>
+</html>
